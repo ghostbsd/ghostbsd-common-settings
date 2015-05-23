@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=GhostBSD login sound
+Comment=GhostBSD login sound
+Exec=paplay /usr/local/share/sounds/ghostbsd/desktop-login.ogg
+Icon=preferences-desktop-theme
+Terminal=false
+Type=Application
