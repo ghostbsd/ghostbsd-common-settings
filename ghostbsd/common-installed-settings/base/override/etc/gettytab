@@ -1,4 +1,4 @@
-# $FreeBSD: src/etc/gettytab,v 1.24.10.2.2.1 2010/12/21 17:09:25 kensmith Exp $
+# $FreeBSD: releng/10.1/etc/gettytab 241708 2012-10-18 22:20:02Z peterj $
 #	from: @(#)gettytab	5.14 (Berkeley) 3/27/91
 #
 # Most of the table entries here are just copies of the old getty table,
@@ -36,7 +36,7 @@
 #     ep:op:  same as ap.
 #
 default:\
-	:cb:ce:ck:lc:fd#1000:im=\r\GhostBSD/%m (%h) (%t)\r\n\r\n:sp#1200:\
+	:cb:ce:ck:lc:fd#1000:im=\r\n%s/%m (%h) (%t)\r\n\r\n:sp#1200:\
 	:if=/etc/issue:
 
 #
@@ -96,7 +96,7 @@ local.9600|CLOCAL tty @ 9600 Bd:\
 	:o0#0x00000007:o1#0x00000002:o2#0x00000007:\
 	:i0#0x00000704:i1#0x00000000:i2#0x00000704:\
 	:l0#0x000005cf:l1#0x00000000:l2#0x000005cf:\
-	:sp#9600:
+	:sp#9600:np:
 
 #
 # Dial in rotary tables, speed selection via 'break'
@@ -162,7 +162,7 @@ X|Xwindow|X window system:\
 	:fd@:nd@:cd@:rw:sp#9600:
 
 P|Pc|Pc console:\
-	:ht:np:sp#115200:
+	:ht:np:sp#9600:
 
 #
 # Weirdo special case for fast crt's with hardcopy devices
@@ -231,3 +231,6 @@ al.230400:\
 	:np:nc:sp#115200:
 3wire.230400|230400-3wire:\
 	:np:nc:sp#230400:
+# ghostbsd user autologin
+ghostbsd:\
+:al=ghostbsd:ht:np:sp#115200:

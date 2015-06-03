@@ -22,7 +22,7 @@
 \ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 \ SUCH DAMAGE.
 \ 
-\ $FreeBSD: releng/9.2/sys/boot/forth/brand.4th 254235 2013-08-12 01:21:14Z dteske $
+\ $FreeBSD: releng/10.1/sys/boot/forth/brand.4th 267010 2014-06-03 14:50:51Z rodrigc $
 
 marker task-brand.4th
 
@@ -35,12 +35,13 @@ variable brandY
 
 : fbsd-logo ( x y -- ) \ "FreeBSD" [wide] logo in B/W (7 rows x 42 columns)
 
-	2dup at-xy ."   ____ _               _    ____   _____ _____  " 1+
-	2dup at-xy ."  / ___| |             | |_ |  _ \ / ____|  __ \ " 1+
-	2dup at-xy ." | |   | |__   ___  ___| __|| |_) | (___ | |  | |" 1+
-	2dup at-xy ." | |  _| '_ \ / _ \/ __| |  |  _ < \___ \| |  | |" 1+
-	2dup at-xy ." | |_| | | | | (_) \__ \ |_ | |_) |____) | |__| |" 1+
-	     at-xy ."  \____|_| |_|\___/|___/\__||____/|_____/|_____/ "
+	2dup at-xy ."  ______               ____   _____ _____  " 1+
+	2dup at-xy ." |  ____|             |  _ \ / ____|  __ \ " 1+
+	2dup at-xy ." | |___ _ __ ___  ___ | |_) | (___ | |  | |" 1+
+	2dup at-xy ." |  ___| '__/ _ \/ _ \|  _ < \___ \| |  | |" 1+
+	2dup at-xy ." | |   | | |  __/  __/| |_) |____) | |__| |" 1+
+	2dup at-xy ." | |   | | |    |    ||     |      |      |" 1+
+	     at-xy ." |_|   |_|  \___|\___||____/|_____/|_____/ "
 
 	\ Put the cursor back at the bottom
 	0 25 at-xy
@@ -55,6 +56,8 @@ variable brandY
 \ 	NAME        DESCRIPTION
 \ 	fbsd        FreeBSD logo
 \ 
+\ NOTE: Setting `loader_brand' to the value of an existing function
+\       (such as "mycustom-brand") will cause that symbol to be executed.
 \ NOTE: Setting `loader_brand' to an undefined value (such as "none") will
 \       prevent any brand from being drawn.
 \ 
@@ -85,6 +88,15 @@ variable brandY
 		brandX @ brandY @ fbsd-logo
 		2drop exit
 	then
+
+        \ if it refers to a raw symbol then run that function
+        sfind if
+            brandX @ brandY @
+            2 roll
+            execute
+        else            
+            drop
+        then
 
 	2drop
 ;

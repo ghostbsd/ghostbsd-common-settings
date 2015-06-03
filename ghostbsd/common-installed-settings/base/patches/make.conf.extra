@@ -5,15 +5,9 @@ WITH_GPGSM=yes
 WITH_PRINTER_APPLET=yes
 WITH_ACPI_PM=yes
 WITH_VDPAU=yes
-
 WITH_CUPS=yes
 CUPS_OVERWRITE_BASE=yes
 WITHOUT_LPR=yes
 #Openoffice Language Options
 ALL_LOCALIZED_LANGS=YES
 
-# Set the default ruby version
-RUBY_DEFAULT=2.0
-
-# Disable some universal optionng
-OPTIONS_UNSET=JAVA NOUVEAU

@@ -24,11 +24,11 @@
 \ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 \ SUCH DAMAGE.
 \ 
-\ $FreeBSD: releng/9.2/sys/boot/forth/beastie.4th 254235 2013-08-12 01:21:14Z dteske $
+\ $FreeBSD: releng/10.1/sys/boot/forth/beastie.4th 271135 2014-09-04 21:01:10Z emaste $
 
 marker task-beastie.4th
 
-include /boot/delay.4th
+only forth definitions also support-functions
 
 variable logoX
 variable logoY
@@ -105,18 +105,19 @@ variable logoY
 	\ 
 	5 + swap 6 + swap
 
-	2dup at-xy ."     ,gggg,gg " 1+
-	2dup at-xy ."    dP*  *Y8I " 1+
-	2dup at-xy ."   i8'    ,8I " 1+
-	2dup at-xy ."  ,d8,   ,d8I" 1+
-	2dup at-xy ."  P*Y8888P*888" 1+
-	2dup at-xy ."         ,d8I'" 1+
-	2dup at-xy ."       ,dP'8I" 1+
-	2dup at-xy ."      ,8*  8I" 1+
-	2dup at-xy ."      I8   8I " 1+
-	2dup at-xy ."      `8, ,8I " 1+
-	     at-xy ."       `Y8P*"
-	
+	2dup at-xy ."  ______" 1+
+	2dup at-xy ." |  ____| __ ___  ___ " 1+
+	2dup at-xy ." | |__ | '__/ _ \/ _ \" 1+
+	2dup at-xy ." |  __|| | |  __/  __/" 1+
+	2dup at-xy ." | |   | | |    |    |" 1+
+	2dup at-xy ." |_|   |_|  \___|\___|" 1+
+	2dup at-xy ."  ____   _____ _____" 1+
+	2dup at-xy ." |  _ \ / ____|  __ \" 1+
+	2dup at-xy ." | |_) | (___ | |  | |" 1+
+	2dup at-xy ." |  _ < \___ \| |  | |" 1+
+	2dup at-xy ." | |_) |____) | |__| |" 1+
+	2dup at-xy ." |     |      |      |" 1+
+	     at-xy ." |____/|_____/|_____/"
 
 	\ Put the cursor back at the bottom
 	0 25 at-xy
@@ -180,8 +181,10 @@ variable logoY
 \ 	beastie     Color ``Helper Daemon'' mascot (19 rows x 34 columns)
 \ 	beastiebw   B/W ``Helper Daemon'' mascot (19 rows x 34 columns)
 \ 	fbsdbw      "FreeBSD" logo in B/W (13 rows x 21 columns)
-\ 	orb         Color ``Orb'' mascot (15 rows x 30 columns) (default)
+\ 	orb         Color ``Orb'' mascot (15 rows x 30 columns) (2nd default)
 \ 	orbbw       B/W ``Orb'' mascot (15 rows x 32 columns)
+\ 	tribute     Color ``Tribute'' (must fit 19 rows x 34 columns) (default)
+\ 	tributebw   B/W ``Tribute'' (must fit 19 rows x 34 columns)
 \ 
 \ NOTE: Setting `loader_logo' to an undefined value (such as "none") will
 \       prevent beastie from being drawn.
@@ -199,38 +202,26 @@ variable logoY
 		drop
 	then
 
-	s" loader_logo" getenv dup -1 = if
-		logoX @ logoY @
+	s" loader_logo" getenv dup -1 <> if
+		dup 5 + allocate if ENOMEM throw then
+		0 2swap strcat s" -logo" strcat
+		over -rot ( a-addr/u -- a-addr a-addr/u )
+		sfind     ( a-addr a-addr/u -- a-addr xt bool )
+		rot       ( a-addr xt bool -- xt bool a-addr )
+		free      ( xt bool a-addr -- xt bool ior )
+		if EFREE throw then
+	else
+		0 ( cruft -- cruft bool ) \ load the default below
+	then
+	0= if
+		drop ( cruft -- )
 		loader_color? if
-			fbsdbw-logo
+			['] orb-logo
 		else
-			fbsdbw-logo
+			['] orbbw-logo
 		then
-		drop exit
 	then
-
-	2dup s" beastie" compare-insensitive 0= if
-		logoX @ logoY @ beastie-logo
-		2drop exit
-	then
-	2dup s" beastiebw" compare-insensitive 0= if
-		logoX @ logoY @ beastiebw-logo
-		2drop exit
-	then
-	2dup s" fbsdbw" compare-insensitive 0= if
-		logoX @ logoY @ fbsdbw-logo
-		2drop exit
-	then
-	2dup s" orb" compare-insensitive 0= if
-		logoX @ logoY @ orb-logo
-		2drop exit
-	then
-	2dup s" orbbw" compare-insensitive 0= if
-		logoX @ logoY @ orbbw-logo
-		2drop exit
-	then
-
-	2drop
+	logoX @ logoY @ rot execute
 ;
 
 : clear-beastie ( -- ) \ clears beastie from the screen
@@ -251,10 +242,19 @@ variable logoY
 ;
 
 : beastie-start ( -- ) \ starts the menu
+	s" console" getenv dup -1 <> if
+		s" efi" 2swap contains? if
+			s" set beastie_disable=YES" evaluate
+		then
+	else drop then
 	s" beastie_disable" getenv
 	dup -1 <> if
 		s" YES" compare-insensitive 0= if
-			exit
+			any_conf_read? if
+				load_kernel
+				load_modules
+			then
+			exit \ to autoboot (default)
 		then
 	else
 		drop
@@ -271,3 +271,5 @@ variable logoY
 		delay_execute
 	then
 ;
+
+only forth also
