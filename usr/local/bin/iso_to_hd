@@ -22,9 +22,6 @@ sed -i '' 's@#pcdm_enable="YES"@pcdm_enable="YES"@g' /etc/rc.conf
 cd /home
 LS=`ls`
 cd -
-for user in ${LS}
-do
-
 
 # Setup PolicyKit for mounting device.
 printf '<?xml version="1.0" encoding="UTF-8"?> <!-- -*- XML -*- -->
