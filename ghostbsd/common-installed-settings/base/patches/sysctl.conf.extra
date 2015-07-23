@@ -1,3 +1,5 @@
 vfs.usermount=1
 compat.linux.osrelease=2.6.18
 
+# the following is required to run chromium browser
+kern.ipc.shm_allow_removed=1
