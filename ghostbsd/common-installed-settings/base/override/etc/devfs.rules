@@ -22,3 +22,4 @@ add path 'cx88*' mode 0660
 add path 'cx23885*' mode 0660 
 add path 'iicdev*' mode 0660
 add path 'uvisor[0-9]*' mode 066
+add path 'dri/*' mode 0666 group wheel
