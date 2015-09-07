@@ -14,10 +14,14 @@ pkg delete -y $GBSDFLAVOUR-live-settings
 pkg delete -y ghostbsd-live-common-settings
 }
 
-rm -f /usr/bin/gbi 
-rm -f /usr/bin/ginstall
+# Adding kern.vty=vt to grub.cfg
+sed -i '' '/set kFreeBSD.vfs.root.mountfrom.options=rw/a\
+\       set kFreeBSD.kern.vty=vt\
+' /boot/grub/grub.cfg
 
-sed -i '' 's@#pcdm_enable="YES"@pcdm_enable="YES"@g' /etc/rc.conf 
+# Replassing FreeBSD by GhostBSD
+sed -i '' "s@'FreeBSD,@'GhostBSD,@g" /boot/grub/grub.cfg
+sed -i '' "s@FreeBSD'@GhostBSD'@g" /boot/grub/grub.cfg
 
 # Removing livecd hostname.
 ( echo 'g/hostname="livecd"/d' ; echo 'wq' ) | ex -s /etc/rc.conf
