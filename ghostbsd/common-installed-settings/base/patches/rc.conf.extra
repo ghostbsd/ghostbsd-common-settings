@@ -18,10 +18,17 @@ cupsd_enable="YES"
 #pcdm_enable="YES"
 hald_enable="YES"
 dbus_enable="YES"
+#gdm_enable="YES"
 
-# Enable linux compactibility
+# Enable linux compatibility
 linux_enable="YES"
 
 # Virtual Box adition configuration
 vboxguest_enable="YES"
 vboxservice_enable="YES"
+
+# Disable sendmail in livecd
+sendmail_enable="NONE"
+sendmail_submit_enable="NO"
+sendmail_outbound_enable="NO"
+sendmail_msp_queue_enable="NO"
