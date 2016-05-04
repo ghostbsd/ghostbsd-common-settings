@@ -16,6 +16,7 @@
 # msgs -q
 # Allow terminal messages
 # mesg y
-CHARSET=UTF-8; export CHARSET
-LANG=en_US.UTF-8 export LANG
-GDM_LANG=en_US.UTF-8 export GDM_LANG
+CHARSET=UTF-8;	export CHARSET
+LANG=en_US.UTF-8;	export LANG
+GDM_LANG=en_US.UTF-8:	export GDM_LANG
+LC_ALL=en_US.UTF-8:	export LC_ALL
