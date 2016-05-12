@@ -3,3 +3,5 @@ compat.linux.osrelease=2.6.18
 
 # the following is required to run chromium browser
 kern.ipc.shm_allow_removed=1
+kern.bootfile=/boot/kernel/kernel
+
