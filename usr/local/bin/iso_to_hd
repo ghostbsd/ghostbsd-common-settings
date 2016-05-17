@@ -14,6 +14,13 @@ pkg delete -y $GBSDFLAVOUR-live-settings
 pkg delete -y ghostbsd-live-common-settings
 }
 
+set_sudoers()
+{
+  sed -i "" -e 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' ${BASEDIR}/usr/local/etc/sudoers
+  sed -i "" -e 's/# %sudo/%sudo/g' ${BASEDIR}/usr/local/etc/sudoers
+}
+
+
 # Adding kern.vty=vt to grub.cfg
 sed -i '' '/set kFreeBSD.vfs.root.mountfrom.options=rw/a\
 \       set kFreeBSD.kern.vty=vt\
@@ -69,3 +76,4 @@ printf '<?xml version="1.0" encoding="UTF-8"?> <!-- -*- XML -*- -->
 ' > /usr/local/etc/PolicyKit/PolicyKit.conf
 
 purge_live_settings
+set_sudoers
