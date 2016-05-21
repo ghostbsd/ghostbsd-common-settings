@@ -21,14 +21,14 @@ set_sudoers()
 }
 
 
-# Adding kern.vty=vt to grub.cfg
+# Adding kern.vty=vt to 10_kfreebsd
 sed -i '' '/set kFreeBSD.vfs.root.mountfrom.options=rw/a\
 \       set kFreeBSD.kern.vty=vt\
-' /boot/grub/grub.cfg
+\       set kFreeBSD.hw.psm.synaptics_support="1"\
+' /usr/local/etc/grub.d/10_kfreebsd
 
 # Replassing FreeBSD by GhostBSD
-sed -i '' "s@'FreeBSD,@'GhostBSD,@g" /boot/grub/grub.cfg
-sed -i '' "s@FreeBSD'@GhostBSD'@g" /boot/grub/grub.cfg
+sed -i '' 's@"FreebSD"@"GhostBSD"@g' /usr/local/etc/grub.d/10_kfreebsd
 
 # Removing livecd hostname.
 ( echo 'g/hostname="livecd"/d' ; echo 'wq' ) | ex -s /etc/rc.conf
