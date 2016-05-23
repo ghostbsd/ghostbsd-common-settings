@@ -28,7 +28,7 @@ sed -i '' '/set kFreeBSD.vfs.root.mountfrom.options=rw/a\
 ' /usr/local/etc/grub.d/10_kfreebsd
 
 # Replassing FreeBSD by GhostBSD
-sed -i '' 's@"FreebSD"@"GhostBSD"@g' /usr/local/etc/grub.d/10_kfreebsd
+sed -i '' 's/OS="FreeBSD"/OS="GhostBSD"/g' /usr/local/etc/grub.d/10_kfreebsd
 
 # Removing livecd hostname.
 ( echo 'g/hostname="livecd"/d' ; echo 'wq' ) | ex -s /etc/rc.conf
