@@ -4,7 +4,7 @@
 # removing the old network configuration
 
 if [ -f /usr/local/etc/default/distro ] ; then
-. ./usr/local/etc/default/distro
+. /usr/local/etc/default/distro
 fi
 
 purge_live_settings()
@@ -14,14 +14,21 @@ pkg delete -y $GBSDFLAVOUR-live-settings
 pkg delete -y ghostbsd-live-common-settings
 }
 
-# Adding kern.vty=vt to grub.cfg
+set_sudoers()
+{
+  sed -i "" -e 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' ${BASEDIR}/usr/local/etc/sudoers
+  sed -i "" -e 's/# %sudo/%sudo/g' ${BASEDIR}/usr/local/etc/sudoers
+}
+
+
+# Adding kern.vty=vt to 10_kfreebsd
 sed -i '' '/set kFreeBSD.vfs.root.mountfrom.options=rw/a\
 \       set kFreeBSD.kern.vty=vt\
-' /boot/grub/grub.cfg
+\       set kFreeBSD.hw.psm.synaptics_support="1"\
+' /usr/local/etc/grub.d/10_kfreebsd
 
 # Replassing FreeBSD by GhostBSD
-sed -i '' "s@'FreeBSD,@'GhostBSD,@g" /boot/grub/grub.cfg
-sed -i '' "s@FreeBSD'@GhostBSD'@g" /boot/grub/grub.cfg
+sed -i '' 's/OS="FreeBSD"/OS="GhostBSD"/g' /usr/local/etc/grub.d/10_kfreebsd
 
 # Removing livecd hostname.
 ( echo 'g/hostname="livecd"/d' ; echo 'wq' ) | ex -s /etc/rc.conf
@@ -69,3 +76,4 @@ printf '<?xml version="1.0" encoding="UTF-8"?> <!-- -*- XML -*- -->
 ' > /usr/local/etc/PolicyKit/PolicyKit.conf
 
 purge_live_settings
+set_sudoers
