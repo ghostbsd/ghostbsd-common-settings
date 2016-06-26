@@ -5,9 +5,9 @@ Before seeking technical support, please use the following resources:
 o  Security advisories and updated and information for all releases.
    http://www.GhostBSD.org.
 
-o  The Handbook and FAQ documents are at http://www.ghostbsd.org/help 
-   and, along with the mailing lists, can be searched by going to
-   https://sourceforge.net/p/ghostbsdproject/mailman/.
+o  The Handbook and FAQ documents are at http://www.ghostbsd.org/support 
+   and, along with the the forums, can be searched by going to
+   http://forums.GhostBSD.org
 
 If you still have a question or problem, please take the output of
 `uname -a', along with any relevant error messages, and post it
