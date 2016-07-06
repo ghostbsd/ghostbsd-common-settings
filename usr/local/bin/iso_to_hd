@@ -20,6 +20,12 @@ set_sudoers()
   sed -i "" -e 's/# %sudo/%sudo/g' ${BASEDIR}/usr/local/etc/sudoers
 }
 
+acpi_disable()
+{
+  # test condiion to see if computer was started with acpi disabled
+  sed -i "" -e 's/# hint.acpi.0.disabled="1"/hint.acpi.0.disabled="1"/g' /boot/loader.conf
+}
+
 
 # Adding kern.vty=vt to 10_kfreebsd
 sed -i '' '/set kFreeBSD.vfs.root.mountfrom.options=rw/a\
@@ -77,3 +83,4 @@ printf '<?xml version="1.0" encoding="UTF-8"?> <!-- -*- XML -*- -->
 
 purge_live_settings
 set_sudoers
+#acpi_disable
