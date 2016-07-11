@@ -30,10 +30,9 @@ revert_slim()
 {
   # remove ghostbsd user from slim.conf and autologin
 if [ -f /usr/local/etc/slim.conf ] ; then
-        sed -i '' -e "s/auto_login          yes/#auto_login          no/g"\
-            -e  "s/default_user        ghostbsd/#default_user        simone/g" \
-            -e  "s/current_theme       ghostbsd/current_theme       default/g" \
-            /usr/local/etc/slim.conf
+    sed -i '' -e "s/auto_login          yes/#auto_login          no/g"\
+              -e  "s/default_user        ghostbsd/#default_user        simone/g" \
+              /usr/local/etc/slim.conf
 fi
 }
 
