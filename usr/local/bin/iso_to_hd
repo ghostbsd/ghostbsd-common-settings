@@ -26,6 +26,17 @@ acpi_disable()
   sed -i "" -e 's/# hint.acpi.0.disabled="1"/hint.acpi.0.disabled="1"/g' /boot/loader.conf
 }
 
+revert_slim()
+{
+  # remove ghostbsd user from slim.conf and autologin
+if [ -f /usr/local/etc/slim.conf ] ; then
+        sed -i '' -e "s/auto_login          yes/#auto_login          no/g"\
+            -e  "s/default_user        ghostbsd/#default_user        simone/g" \
+            -e  "s/current_theme       ghostbsd/current_theme       default/g" \
+            /usr/local/etc/slim.conf
+fi
+}
+
 
 # Adding kern.vty=vt to 10_kfreebsd
 sed -i '' '/set kFreeBSD.vfs.root.mountfrom.options=rw/a\
@@ -84,3 +95,4 @@ printf '<?xml version="1.0" encoding="UTF-8"?> <!-- -*- XML -*- -->
 purge_live_settings
 set_sudoers
 #acpi_disable
+revert_slim
