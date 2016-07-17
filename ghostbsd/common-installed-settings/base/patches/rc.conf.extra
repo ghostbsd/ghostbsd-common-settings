@@ -19,7 +19,6 @@ usbd_enable="YES"
 dbus_enable="YES"
 hald_enable="YES"
 polkit_enable="YES"
-gdm_enable="YES"
 
 lpd_enable="NO"
 cupsd_enable="YES"
@@ -41,5 +40,5 @@ sendmail_outbound_enable="NO"
 sendmail_msp_queue_enable="NO"
 
 # Load the following kernel modules
-kld_list="ng_ubt udf udf_iconv geom_mirror geom_journal geom_eli linux zfs nullfs"
+kld_list="geom_mirror geom_journal geom_eli linux"
 
