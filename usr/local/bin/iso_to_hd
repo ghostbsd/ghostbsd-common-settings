@@ -53,6 +53,18 @@ if [ -f /usr/local/etc/gdm/custom.conf.sample ] ; then
 fi
 }
 
+fix_perms()
+{
+# fix permissions for kdm
+if [ -d /usr/local/share/ghostbsd/kde-settings ]; then
+    chmod 755 /var/lib/kdm
+fi
+
+# fix permissions for tmp dirs
+chmod 1777 /var/tmp
+chmod 1777 /tmp
+}
+
 # Adding kern.vty=vt to 10_kfreebsd
 sed -i '' '/set kFreeBSD.vfs.root.mountfrom.options=rw/a\
 \       set kFreeBSD.kern.vty=vt\
@@ -113,3 +125,4 @@ set_sudoers
 revert_slim
 revert_kdm
 revert_gdm
+fix_perms
