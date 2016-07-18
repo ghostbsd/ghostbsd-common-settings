@@ -36,6 +36,22 @@ if [ -f /usr/local/etc/slim.conf ] ; then
 fi
 }
 
+revert_kdm()
+{
+if [ -f /usr/local/share/config/kdm/kdmrc ]; then
+     sed -i '' -e "s/AutoLoginEnable=true/#AutoLoginEnable=true/g"\
+     -e  "s/AutoLoginAgain=true/#AutoLoginAgain=true/g" \
+     -e  "s/AutoLoginUser=ghostbsd/#AutoLoginUser=fred/g" \
+     /usr/local/share/config/kdm/kdmrc
+fi
+}
+
+revert_gdm()
+{
+if [ -f /usr/local/etc/gdm/custom.conf.sample ] ; then
+        cp -af /usr/local/etc/gdm/custom.conf.sample /usr/local/etc/gdm/custom.conf
+fi
+}
 
 # Adding kern.vty=vt to 10_kfreebsd
 sed -i '' '/set kFreeBSD.vfs.root.mountfrom.options=rw/a\
@@ -95,3 +111,5 @@ purge_live_settings
 set_sudoers
 #acpi_disable
 revert_slim
+revert_kdm
+revert_gdm
