@@ -10,7 +10,6 @@ hostname="ghostbsd"
 powerd_enable="YES"
 powerd_flags="-a adp -b adp"
 
-devd_enable="YES"
 # DEVFS rules
 devfs_system_ruleset="devfsrules_common"
 devd_enable="YES"
@@ -20,18 +19,11 @@ dbus_enable="YES"
 hald_enable="YES"
 polkit_enable="YES"
 
-lpd_enable="NO"
-cupsd_enable="YES"
-
 moused_enable="YES"
 iscsid_enable="YES"
 
 # Enable linux compatibility
 linux_enable="YES"
-
-# Virtual Box adition configuration
-vboxguest_enable="YES"
-vboxservice_enable="YES"
 
 # Disable sendmail in livecd
 sendmail_enable="NONE"
@@ -42,3 +34,4 @@ sendmail_msp_queue_enable="NO"
 # Load the following kernel modules
 kld_list="geom_mirror geom_journal geom_eli linux"
 
+# Configs from installed packages
