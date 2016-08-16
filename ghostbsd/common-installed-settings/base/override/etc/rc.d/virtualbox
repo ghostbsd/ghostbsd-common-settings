@@ -18,8 +18,10 @@ virtualbox_start() {
 # Check if we are in virtualbox to enable vbox-guest-additions
 pciconf -lv | grep -q "VirtualBox Graphics"
 if  [ $? -eq 0 ] ; then
-/usr/local/etc/rc.d/vboxguest onestart
-/usr/local/etc/rc.d/vboxservice onestart
+    /usr/local/etc/rc.d/vboxguest onestart
+    /usr/local/etc/rc.d/vboxservice onestart
+else
+    echo "Real hardware, virtualbox-ose-additions is not installed"
 fi
 }
 
@@ -28,6 +30,8 @@ pciconf -lv | grep -q "VirtualBox Graphics"
 if  [ $? -eq 0 ] ; then
     /usr/local/etc/rc.d/vboxguest onestop
     /usr/local/etc/rc.d/vboxservice onestop
+else
+    echo "Real hardware, virtualbox-ose-additions is not installed"
 fi
 }
 
