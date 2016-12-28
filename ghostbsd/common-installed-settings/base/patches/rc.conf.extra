@@ -32,6 +32,6 @@ sendmail_outbound_enable="NO"
 sendmail_msp_queue_enable="NO"
 
 # Load the following kernel modules
-kld_list="geom_mirror geom_journal geom_eli linux"
+kld_list="geom_mirror geom_journal geom_eli linux fuse ext2fs"
 
 # Configs from installed packages
