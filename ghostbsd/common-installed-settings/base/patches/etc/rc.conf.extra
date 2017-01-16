@@ -1,9 +1,3 @@
-#
-# See /etc/defaults/rc.conf to add more option.
-# Do not configure /etc/defaults/rc.conf.
-# Configure only this file.
-#
-
 hostname="ghostbsd"
 
 # Power saver.
@@ -25,13 +19,8 @@ iscsid_enable="YES"
 # Enable linux compatibility
 linux_enable="YES"
 
-# Disable sendmail in livecd
-sendmail_enable="NONE"
-sendmail_submit_enable="NO"
-sendmail_outbound_enable="NO"
-sendmail_msp_queue_enable="NO"
-
 # Load the following kernel modules
-kld_list="geom_mirror geom_journal geom_eli linux fuse ext2fs"
+kld_list="geom_mirror geom_journal geom_eli linux fuse ext2fs cuse"
 
 # Configs from installed packages
+webcamd_enable="YES"

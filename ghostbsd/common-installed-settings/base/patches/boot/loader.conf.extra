@@ -1,12 +1,2 @@
-vfs.mountroot.timeout="10"
-autoboot_delay="10"
-geom_uzip_load="YES"
 loader_brand="gbsd"
 loader_logo="gbsd"
-geom_mirror_load="YES"
-geom_journal_load="YES"
-linux_load="YES"
-# hint.acpi.0.disabled="1"
-aesni_load="YES
-geom_eli_load="YES"
-
