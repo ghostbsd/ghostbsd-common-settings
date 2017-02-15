@@ -22,6 +22,7 @@ if  [ $? -eq 0 ] ; then
     /usr/local/etc/rc.d/vboxservice onestart
 else
     echo "Real hardware, virtualbox-ose-additions is not installed"
+    rm /usr/local/etc/xdj/vboxclient.desktop
 fi
 }
 
