@@ -1,0 +1,11 @@
+/* -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*- */
+
+polkit.addRule(function (action, subject) {
+  if ((action.id == "org.freedesktop.consolekit.system.restart" ||
+      action.id == "org.freedesktop.consolekit.system.stop" ||
+      action.id == "org.freedesktop.consolekit.system.suspend")
+      && subject.isInGroup("wheel")) {
+    return polkit.Result.YES;
+  }
+});
+
