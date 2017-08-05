@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Version=1.0
-Name=Midnight Commander
-GenericName=Midnight Commander
-Comment=Midnight Commander, a free Norton Commander Clone
-Icon=mc
-Exec=x-terminal-emulator -e mc
-Categories=System;Utility;Core;FileTools;FileManager;
